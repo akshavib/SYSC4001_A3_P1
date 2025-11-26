@@ -65,6 +65,8 @@ struct PCB{
     enum states     state;
     unsigned int    io_freq;
     unsigned int    io_duration;
+
+    int             priority; // added for external priority scheduling
 };
 
 //------------------------------------HELPER FUNCTIONS FOR THE SIMULATOR------------------------------
@@ -269,6 +271,13 @@ PCB add_process(std::vector<std::string> tokens) {
     process.start_time = -1;
     process.partition_number = -1;
     process.state = NOT_ASSIGNED;
+
+    // Only for if there is external priority scheduling, add priority value
+    if (tokens.size() > 6) {
+        process.priority = std::stoi(tokens[6]);
+    } else {
+        process.priority = 0; // Default if missing
+    }
 
     return process;
 }
