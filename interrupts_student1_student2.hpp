@@ -67,6 +67,7 @@ struct PCB{
     unsigned int    io_duration;
 
     int             priority; // added for external priority scheduling
+    
 };
 
 //------------------------------------HELPER FUNCTIONS FOR THE SIMULATOR------------------------------

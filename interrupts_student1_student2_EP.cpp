@@ -43,7 +43,18 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
         //Inside this loop, there are three things you must do:
         // 1) Populate the ready queue with processes as they arrive
+        for (auto &process: list_processes){ // iterating through the list of processes
+            if(process.arrival_time == current_time){ 
+                process.state = READY;
+                ready_queue.push_back(process);
+                job_list.push_back(process);
+                execution_status += print_exec_status(current_time, process.PID, NEW, READY);
+            }
+        }
         // 2) Manage the wait queue
+        for (auto iter = wait_queue.begin(); iter != wait_queue.end();){ // iterating through the wait queue to update the processes
+            
+        }
         // 3) Schedule processes from the ready queue
 
         //Population of ready queue is given to you as an example.
