@@ -43,18 +43,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
         //Inside this loop, there are three things you must do:
         // 1) Populate the ready queue with processes as they arrive
-        for (auto &process: list_processes){ // iterating through the list of processes
-            if(process.arrival_time == current_time){ 
-                process.state = READY;
-                ready_queue.push_back(process);
-                job_list.push_back(process);
-                execution_status += print_exec_status(current_time, process.PID, NEW, READY);
-            }
-        }
         // 2) Manage the wait queue
-        for (auto iter = wait_queue.begin(); iter != wait_queue.end();){ // iterating through the wait queue to update the processes
-            
-        }
         // 3) Schedule processes from the ready queue
 
         //Population of ready queue is given to you as an example.
@@ -74,7 +63,20 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
         ///////////////////////MANAGE WAIT QUEUE/////////////////////////
         //This mainly involves keeping track of how long a process must remain in the ready queue
-
+        for (auto itr = wait_queue.begin(); itr != wait_queue.end();){
+            itr->remaining_time--; //Decrement IO remaining time
+            if (itr->remaining_time == 0){
+                PCB process = *itr; //Process for the completed IO
+                process.state = READY; //Process is now ready to go back to ready queue
+                ready_queue.push_back(process); //Add the process to the ready queue
+                job_list.push_back(process); //Add it to the list of processes
+                execution_status += print_exec_status(current_time, process.PID, WAITING, READY); //Process went from waiting to ready
+                itr = wait_queue.erase(itr); //Remove from wait queue
+            }
+            else{
+                ++itr;
+            }
+        }
         /////////////////////////////////////////////////////////////////
 
         //////////////////////////SCHEDULER//////////////////////////////
