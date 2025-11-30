@@ -28,6 +28,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
     unsigned int current_time = 0;
     PCB running;
+    int quantum = 100;  //Time quantum for Round Robin Scheduling
 
     //Initialize an empty running process
     idle_CPU(running);
@@ -82,7 +83,13 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         /////////////////////////////////////////////////////////////////
 
         //////////////////////////SCHEDULER//////////////////////////////
-        FCFS(ready_queue); //example of FCFS is shown here
+        FCFS(ready_queue); // example of FCFS is shown here
+        if (running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
+            run_process(running, job_list, ready_queue, current_time);
+            quantum = 0; // reset quantum timer
+            execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
+        }
+        current_time++;
         /////////////////////////////////////////////////////////////////
 
     }
