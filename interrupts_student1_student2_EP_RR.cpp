@@ -90,8 +90,17 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         
         if(ready_queue.size() > 1){ // using bubble sort!! to sort the lowest to highest PID (might be inefficient tho)
             for(int i = 0; i < ready_queue.size() - 1; i++){
-                for(int j = i + 1; j < ready_queue.size(); j++){
+                for(int j = 0; j < ready_queue.size() - i - 1; j++){
+                    // Swap if Left is Smaller than Right (pushes Smallest to the Right/Back)
+                    bool swap = false;
                     if (ready_queue[j].PID < ready_queue[j+1].PID) {
+                        swap = true;
+                    } else if (ready_queue[j].PID == ready_queue[j+1].PID) {
+                        if (ready_queue[j].arrival_time < ready_queue[j+1].arrival_time) {
+                            swap = true;
+                        }
+                    }
+                    if (swap) {
                         PCB temp = ready_queue[j];
                         ready_queue[j] = ready_queue[j+1];
                         ready_queue[j+1] = temp;
@@ -101,7 +110,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         }
 
         if (running.PID != -1 && !ready_queue.empty()) { // handling busy CPU but other opocesses 
-            PCB lower_PID = ready_queue.back();
+            PCB lower_PID = ready_queue.back(); // Now valid because we sorted above
             if (lower_PID.PID < running.PID){ // preempt running process
                 
                 running.state = READY;  
@@ -117,8 +126,16 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         if (running.PID == -1 && !ready_queue.empty()) {
             if(ready_queue.size() > 1){ // nunnle sprt again just in case some processes were added back to ready queue
                 for(int i = 0; i < ready_queue.size() - 1; i++){
-                    for(int j = i + 1; j < ready_queue.size(); j++){
+                    for(int j = 0; j < ready_queue.size() - i - 1; j++){
+                        bool swap = false;
                         if (ready_queue[j].PID < ready_queue[j+1].PID) {
+                            swap = true;
+                        } else if (ready_queue[j].PID == ready_queue[j+1].PID) {
+                            if (ready_queue[j].arrival_time < ready_queue[j+1].arrival_time) {
+                                swap = true;
+                            }
+                        }
+                        if (swap) {
                             PCB temp = ready_queue[j];
                             ready_queue[j] = ready_queue[j+1];
                             ready_queue[j+1] = temp;
