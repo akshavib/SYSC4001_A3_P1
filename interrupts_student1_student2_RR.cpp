@@ -28,7 +28,8 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
     unsigned int current_time = 0;
     PCB running;
-    int quantum = 100;  //Time quantum for Round Robin Scheduling
+    int quantum_counter = 0;  //time quantum for RR scheduling
+    const int TIME_QUANTUM = 100; // define the time quantum
 
     //Initialize an empty running process
     idle_CPU(running);
@@ -80,47 +81,54 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
             else{
                 ++itr;
             }
-        /////////////////////////////////////////////////////////////////
-
-        //////////////////////////SCHEDULER//////////////////////////////
-        FCFS(ready_queue); // example of FCFS is shown here
-        if (running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
-            run_process(running, job_list, ready_queue, current_time);
-            quantum = 0; // reset quantum timer
-            execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
         }
+            /////////////////////////////////////////////////////////////////
+            
+            //////////////////////////SCHEDULER//////////////////////////////
+            FCFS(ready_queue); // example of FCFS is shown here
+            if (running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
+                run_process(running, job_list, ready_queue, current_time);
+                quantum_counter = 0; // reset quantum count
+                execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
+            }
 
-        if(running.PID != -1){ // handling if there is a running process
-            running.remaining_time--; // decrement remaining time of running process
-            running.time_until_next_io--; // decrement time until next IO interrupt
-            quantum++; // increment quantum timer 
+            if(running.PID != -1){ // handling if there is a running process
+                running.remaining_time--; // decrement remaining time of running process
+                if(running.io_freq > 0) running.time_until_next_io--;
+                quantum_counter++; // increment quantum timer 
 
-            sync_queue(job_list, running);
-        }
+                sync_queue(job_list, running);
 
-        else if (running.io_freq > 0 && running.time_until_next_io <= 0){ // handling IO interrupt
-            running.state = WAITING;
-            running.remaining_io_time = running.io_duration; // set remaining IO time for waiting
-            running.time_until_next_io = running.io_freq; // reset time until next IO interrupt
+                if(running.remaining_time <= 0){ // handling when the process is finished
+                    execution_status += print_exec_status(current_time, running.PID, RUNNING, TERMINATED);
+                    terminate_process(running, job_list);
+                    idle_CPU(running);
+                    quantum_counter = 0; // reset quantum count
+                }
+            
+                else if (running.io_freq > 0 && running.time_until_next_io <= 0){ // handling IO interrupt
+                    running.state = WAITING;
+                    running.remaining_io_time = running.io_duration; // set remaining IO time for waiting
+                    running.time_until_next_io = running.io_freq; // reset time until next IO interrupt
 
-            wait_queue.push_back(running);
-            execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, WAITING);
+                    wait_queue.push_back(running);
+                    execution_status += print_exec_status(current_time, running.PID, RUNNING, WAITING);
 
-            idle_CPU(running);
-            quantum = 0;
-        }
+                    idle_CPU(running);
+                    quantum_counter = 0;
+                }
+            
+                else if (quantum_counter >= TIME_QUANTUM){ // handling if quantum time is over
+                    running.state = READY;
+                    ready_queue.push_back(running); // add running process to ready queue
+                    execution_status += print_exec_status(current_time, running.PID, RUNNING, READY);
 
-        else if (quantum >= 100){ // handling quantum expiration
-            running.state = READY;
-            ready_queue.insert(ready_queue.begin(), running); // add running process to front of ready queue
-            execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, READY);
-
-            idle_CPU(running);
-            quantum = 0;
-        }
+                    idle_CPU(running);
+                    quantum_counter = 0; 
+                }
+            }
         current_time++;
         /////////////////////////////////////////////////////////////////
-
     }
     
     //Close the output table
