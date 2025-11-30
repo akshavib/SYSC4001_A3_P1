@@ -58,15 +58,17 @@ struct PCB{
     int             PID;
     unsigned int    size;
     unsigned int    arrival_time;
-    int             start_time;
+    int             start_time; // time when process starts execution
     unsigned int    processing_time;
-    unsigned int    remaining_time;
+    unsigned int    remaining_time; // cpu burst time, dont mix with remaining io time
     int             partition_number;
     enum states     state;
-    unsigned int    io_freq;
+    unsigned int    io_freq; // frquenxy of io interrupts 
     unsigned int    io_duration;
 
     int             priority; // added for external priority scheduling
+    int             remaining_io_time; // added for tracking remaining io time, wait time
+    int             time_until_next_io; // added for tracking time until next io interrupt
     
 };
 
@@ -279,6 +281,9 @@ PCB add_process(std::vector<std::string> tokens) {
     } else {
         process.priority = 0; // Default if missing
     }
+
+    process.remaining_io_time = 0;             // initialize wait timer to 0
+    process.remaining_io_time = process.io_freq;   // initialize burst timer to frequency
 
     return process;
 }

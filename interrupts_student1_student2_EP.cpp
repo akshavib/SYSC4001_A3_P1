@@ -64,12 +64,11 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         ///////////////////////MANAGE WAIT QUEUE/////////////////////////
         //This mainly involves keeping track of how long a process must remain in the ready queue
         for (auto itr = wait_queue.begin(); itr != wait_queue.end();){
-            itr->remaining_time--; //Decrement IO remaining time
-            if (itr->remaining_time == 0){
+            itr->remaining_io_time--; //Decrement IO remaining time
+            if (itr->remaining_io_time <= 0){
                 PCB process = *itr; //Process for the completed IO
                 process.state = READY; //Process is now ready to go back to ready queue
                 ready_queue.push_back(process); //Add the process to the ready queue
-                job_list.push_back(process); //Add it to the list of processes
                 execution_status += print_exec_status(current_time, process.PID, WAITING, READY); //Process went from waiting to ready
                 itr = wait_queue.erase(itr); //Remove from wait queue
             }
