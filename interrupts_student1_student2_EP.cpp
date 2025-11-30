@@ -78,6 +78,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
             else{
                 ++itr;
             }
+            current_time++;
         }
         /////////////////////////////////////////////////////////////////
 
@@ -103,7 +104,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                 running.state = WAITING;
                 running.remaining_io_time = running.io_duration; // set remaining IO time for waiting
                 running.time_until_next_io = running.io_freq; // reset time until next IO interrupt
-                
+
                 wait_queue.push_back(running); // add running process to wait queue
                 execution_status += print_exec_status(current_time, running.PID, RUNNING, WAITING);
             
