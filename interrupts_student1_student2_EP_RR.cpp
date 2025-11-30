@@ -27,6 +27,9 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                                     //to make the code easier :).
 
     unsigned int current_time = 0;
+    int quantum_counter = 0;
+    const int TIME_QUANTUM = 100;
+
     PCB running;
 
     //Initialize an empty running process
@@ -63,11 +66,109 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
         ///////////////////////MANAGE WAIT QUEUE/////////////////////////
         //This mainly involves keeping track of how long a process must remain in the ready queue
+        for (auto itr = wait_queue.begin(); itr != wait_queue.end();){ // same method approach as in EP and RR
+            itr->remaining_io_time--;
 
+            if (itr->remaining_io_time <= 0){
+                PCB process = *itr; // process for the completed IO
+                
+                process.state = READY; 
+                ready_queue.push_back(process); // add process to the ready queue
+
+                sync_queue(job_list, process); // syncing copy of the process state to the real process state
+                execution_status += print_exec_status(current_time + 1, process.PID, WAITING, READY); // process went from waiting to ready
+                itr = wait_queue.erase(itr); // remove from wait queue
+            }
+            else{
+                ++itr;
+            }
+        }
         /////////////////////////////////////////////////////////////////
 
         //////////////////////////SCHEDULER//////////////////////////////
-        FCFS(ready_queue); //example of FCFS is shown here
+        //assumption: picking the next process with the lowest PID from the ready queue
+        
+        if(ready_queue.size() > 1){ // using bubble sort!! to sort the lowest to highest PID (might be inefficient tho)
+            for(int i = 0; i < ready_queue.size() - 1; i++){
+                for(int j = i + 1; j < ready_queue.size(); j++){
+                    if (ready_queue[j].PID < ready_queue[j+1].PID) {
+                        PCB temp = ready_queue[j];
+                        ready_queue[j] = ready_queue[j+1];
+                        ready_queue[j+1] = temp;
+                    }
+                }
+            }
+        }
+
+        if (running.PID != -1 && !ready_queue.empty()) { // handling busy CPU but other opocesses 
+            PCB lower_PID = ready_queue.back();
+            if (lower_PID.PID < running.PID){ // preempt running process
+                
+                running.state = READY;  
+                ready_queue.push_back(running); // add running process to ready queue
+
+                sync_queue(job_list, running);
+                execution_status += print_exec_status(current_time, running.PID, RUNNING, READY);
+                idle_CPU(running);
+                quantum_counter = 0;
+            }
+        }
+
+        if (running.PID == -1 && !ready_queue.empty()) {
+            if(ready_queue.size() > 1){ // nunnle sprt again just in case some processes were added back to ready queue
+                for(int i = 0; i < ready_queue.size() - 1; i++){
+                    for(int j = i + 1; j < ready_queue.size(); j++){
+                        if (ready_queue[j].PID < ready_queue[j+1].PID) {
+                            PCB temp = ready_queue[j];
+                            ready_queue[j] = ready_queue[j+1];
+                            ready_queue[j+1] = temp;
+                        }
+                    }
+                }
+            }
+
+            run_process(running, job_list, ready_queue, current_time);
+            quantum_counter = 0;
+            execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
+        }
+
+        if (running.PID != -1){  // taken from RR, handling if there is a running process
+            running.remaining_time--;      
+            if(running.io_freq > 0) {
+                running.time_until_next_io--;  
+            }
+            quantum_counter++; 
+            sync_queue(job_list, running);
+
+            if(running.remaining_time <= 0){ // handling when the process is finished, taken from RR
+                execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, TERMINATED);
+                terminate_process(running, job_list);
+                idle_CPU(running);
+                quantum_counter = 0; // reset quantum count
+            }
+
+            else if (running.io_freq > 0 && running.time_until_next_io <= 0){ // taken from EP, handling IO interrupt
+                running.state = WAITING;
+                running.remaining_io_time = running.io_duration; 
+                running.time_until_next_io = running.io_freq; 
+
+                wait_queue.push_back(running);
+                execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, WAITING);
+
+                idle_CPU(running);
+                quantum_counter = 0;
+            }
+
+            else if (quantum_counter >= TIME_QUANTUM){ // handling if quantum time is over
+                running.state = READY;
+                ready_queue.push_back(running); // add running process to back of ready queue
+                execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, READY);
+
+                idle_CPU(running);
+                quantum_counter = 0; 
+            }
+        }
+        current_time++;
         /////////////////////////////////////////////////////////////////
 
     }

@@ -83,6 +83,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
 
         //////////////////////////SCHEDULER//////////////////////////////
         //FCFS(ready_queue); //example of FCFS is shown here
+        // asumption: lower pid = higher priority
         if(running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
             run_process(running, job_list, ready_queue, current_time); // set new running process
             execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);

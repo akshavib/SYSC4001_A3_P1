@@ -27,9 +27,10 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                                     //to make the code easier :).
 
     unsigned int current_time = 0;
-    PCB running;
     int quantum_counter = 0;  //time quantum for RR scheduling
     const int TIME_QUANTUM = 100; // define the time quantum
+
+    PCB running;
 
     //Initialize an empty running process
     idle_CPU(running);
@@ -85,7 +86,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         ///////////////////////////////////////////////////////////////
 
         //////////////////////////SCHEDULER//////////////////////////////
-        //Round Robin: pick the next process from the front of the ready queue
+        //assumption: picking the next process from the front of the ready queue
         if (running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
             running = ready_queue.front();
             ready_queue.erase(ready_queue.begin());
