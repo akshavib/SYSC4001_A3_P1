@@ -283,7 +283,7 @@ PCB add_process(std::vector<std::string> tokens) {
     }
 
     process.remaining_io_time = 0;             // initialize wait timer to 0
-    process.remaining_io_time = process.io_freq;   // initialize burst timer to frequency
+    process.time_until_next_io = process.io_freq;   // initialize burst timer to frequency
 
     return process;
 }
