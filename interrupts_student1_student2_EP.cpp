@@ -65,13 +65,13 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         //This mainly involves keeping track of how long a process must remain in the ready queue
         for (auto itr = wait_queue.begin(); itr != wait_queue.end();){
             itr->remaining_io_time--; // decrement IO remaining time
-            if (itr->remaining_io_time <= 0){
+            if (itr->remaining_io_time == 0){
                 PCB process = *itr; // process for the completed IO
                 
                 process.state = READY; 
                 ready_queue.push_back(process); // add process to the ready queue
 
-                sync_queue(job_list, process); // syncing copy of the process state to the real process state
+                sync_queue(job_list, process); // syncing copy of the process state to the real process state 
                 execution_status += print_exec_status(current_time, process.PID, WAITING, READY); // process went from waiting to ready
                 itr = wait_queue.erase(itr); // remove from wait queue
             }
@@ -82,48 +82,40 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         /////////////////////////////////////////////////////////////////
 
         //////////////////////////SCHEDULER//////////////////////////////
-        FCFS(ready_queue); //example of FCFS is shown here
+        //FCFS(ready_queue); //example of FCFS is shown here
         if(running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
-
             run_process(running, job_list, ready_queue, current_time); // set new running process
             execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
         }
-        if (running.PID != -1){ // handling if there is a runniing process NO PREEMPTION
-            running.remaining_time--; // decrement remaining time of running process
-            running.time_until_next_io--; // decrement time until next IO interrupt
-            sync_queue(job_list, running); 
 
-            if(running.remaining_time <= 0){ // handling when the process is finished
-                current_time++;
+        if (running.PID != -1){ // handling if there is a running process NO PREEMPTION
+            
+            if(running.remaining_time == 0){ // handling when the process is finished
                 execution_status += print_exec_status(current_time, running.PID, RUNNING, TERMINATED);
                 terminate_process(running, job_list); 
                 idle_CPU(running); // set CPU to idle
 
-                FCFS(ready_queue);
-                if(!ready_queue.empty()) {
+                if(!ready_queue.empty()) { // checking if there is a ready process that can run
                     run_process(running, job_list, ready_queue, current_time);
                     execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
                 }
             }
 
-            else if (running.io_freq > 0 && running.time_until_next_io <= 0){ // handling IO interrupt
+            else if (running.io_freq > 0 && running.time_until_next_io == 0){ // handling IO interrupt
                 running.state = WAITING;
                 running.remaining_io_time = running.io_duration; // set remaining IO time for waiting
                 running.time_until_next_io = running.io_freq; // reset time until next IO interrupt
 
-                current_time++;
                 wait_queue.push_back(running); // add running process to wait queue
                 execution_status += print_exec_status(current_time, running.PID, RUNNING, WAITING);
             
                 idle_CPU(running);
-            
-                FCFS(ready_queue);
-                if(!ready_queue.empty()) {
-                    run_process(running, job_list, ready_queue, current_time);
-                    execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
-                }
             }
+            running.remaining_time--; // decrement remaining time of running process
+            running.time_until_next_io--; // decrement time until next IO interrupt
+            sync_queue(job_list, running); 
         }
+
         current_time++; 
         /////////////////////////////////////////////////////////////////
 
