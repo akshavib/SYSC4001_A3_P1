@@ -56,13 +56,26 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         for(auto &process : list_processes) {
             if(process.arrival_time == current_time) {//check if the AT = current time
                 //if so, assign memory and put the process into the ready queue
-                assign_memory(process);
+                 if (assign_memory(process)) {
+                    process.state = READY;  //Set the process state to READY
+                    ready_queue.push_back(process); //Add the process to the ready queue
+                    //job_list.push_back(process); //Add it to the list of processes
 
-                process.state = READY;  //Set the process state to READY
-                ready_queue.push_back(process); //Add the process to the ready queue
+                    execution_status += print_exec_status(current_time, process.PID, NEW, READY);   
+                } else { // when a process cannot be assigned to any partition
+                    process.state = NEW;
+                    execution_status += print_exec_status(current_time, process.PID, NEW, NEW); 
+                }
                 job_list.push_back(process); //Add it to the list of processes
+            } // for a process that has not been initially allocated a partiton at its arrival time
+            else if(current_time > process.arrival_time && process.state == NEW) { 
+                if (assign_memory(process)) {
+                    process.state = READY;  //Set the process state to READY
+                    ready_queue.push_back(process); //Add the process to the ready queue
+                    //job_list.push_back(process); //Add it to the list of processes
 
-                execution_status += print_exec_status(current_time, process.PID, NEW, READY);
+                    execution_status += print_exec_status(current_time, process.PID, NEW, READY);   
+                } 
             }
         }
 
@@ -163,6 +176,20 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                 execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, TERMINATED);
                 terminate_process(running, job_list);
                 idle_CPU(running);
+
+                if(!ready_queue.empty()) { // checking if there is a ready process that can run
+                    // when process terminates, partition becomes available, meaning it may be allocated to a new process
+                    for(auto &process : list_processes) {  // to update ready queue for any new process that may have been allocated 
+                        if (current_time > process.arrival_time && process.state == NEW && assign_memory(process)) {
+                            process.state = READY;  //Set the process state to READY
+                            ready_queue.push_back(process); //Add the process to the ready queue
+                            //job_list.push_back(process); //Add it to the list of processes
+
+                            execution_status += print_exec_status(current_time, process.PID, NEW, READY);
+                            FCFS(ready_queue);
+                        }
+                    }
+                }
                 quantum_counter = 0; // reset quantum count
             }
 
@@ -175,6 +202,10 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                 execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, WAITING);
 
                 idle_CPU(running);
+                if (!ready_queue.empty()) { // immediately starts running a new process after previous one does I/O (waiting) 
+                    run_process(running, job_list, ready_queue, current_time);
+                    execution_status += print_exec_status(current_time, running.PID, READY, RUNNING);
+                }
                 quantum_counter = 0;
             }
 

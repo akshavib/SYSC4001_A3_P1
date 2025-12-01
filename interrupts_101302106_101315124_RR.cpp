@@ -56,13 +56,26 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         for(auto &process : list_processes) {
             if(process.arrival_time == current_time) {//check if the AT = current time
                 //if so, assign memory and put the process into the ready queue
-                assign_memory(process);
+                 if (assign_memory(process)) {
+                    process.state = READY;  //Set the process state to READY
+                    ready_queue.push_back(process); //Add the process to the ready queue
+                    //job_list.push_back(process); //Add it to the list of processes
 
-                process.state = READY;  //Set the process state to READY
-                ready_queue.push_back(process); //Add the process to the ready queue
+                    execution_status += print_exec_status(current_time, process.PID, NEW, READY);   
+                } else { // when a process cannot be assigned to any partition
+                    process.state = NEW;
+                    execution_status += print_exec_status(current_time, process.PID, NEW, NEW); 
+                }
                 job_list.push_back(process); //Add it to the list of processes
+            } // for a process that has not been initially allocated a partiton at its arrival time
+            else if(current_time > process.arrival_time && process.state == NEW) { 
+                if (assign_memory(process)) {
+                    process.state = READY;  //Set the process state to READY
+                    ready_queue.push_back(process); //Add the process to the ready queue
+                    //job_list.push_back(process); //Add it to the list of processes
 
-                execution_status += print_exec_status(current_time, process.PID, NEW, READY);
+                    execution_status += print_exec_status(current_time, process.PID, NEW, READY);   
+                } 
             }
         }
 
@@ -112,6 +125,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                 execution_status += print_exec_status(current_time + 1, running.PID, RUNNING, TERMINATED);
                 terminate_process(running, job_list);
                 idle_CPU(running);
+                
                 quantum_counter = 0; // reset quantum count
             }
 

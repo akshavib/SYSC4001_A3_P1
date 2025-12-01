@@ -3,7 +3,7 @@
 +------------------------------------------------+
 |                 0 |  1 |       NEW |     READY |
 |                 0 |  1 |     READY |   RUNNING |
-|                50 |  2 |       NEW |     READY |
+|                50 |  2 |       NEW |       NEW |
 |               100 |  1 |   RUNNING |     READY |
 |               100 |  3 |       NEW |     READY |
 |               100 |  1 |     READY |   RUNNING |
@@ -24,6 +24,7 @@
 |               900 |  1 |   RUNNING |     READY |
 |               900 |  1 |     READY |   RUNNING |
 |              1000 |  1 |   RUNNING |TERMINATED |
+|               999 |  2 |       NEW |     READY |
 |              1000 |  2 |     READY |   RUNNING |
 |              1100 |  2 |   RUNNING |     READY |
 |              1100 |  2 |     READY |   RUNNING |

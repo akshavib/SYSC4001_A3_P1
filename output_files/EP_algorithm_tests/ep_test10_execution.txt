@@ -5,18 +5,18 @@
 |                 0 |  1 |     READY |   RUNNING |
 |                10 |  2 |       NEW |     READY |
 |                20 |  1 |   RUNNING |   WAITING |
-|                21 |  2 |     READY |   RUNNING |
+|                20 |  2 |     READY |   RUNNING |
 |                40 |  1 |   WAITING |     READY |
-|               521 |  2 |   RUNNING |TERMINATED |
-|               521 |  1 |     READY |   RUNNING |
-|               541 |  1 |   RUNNING |   WAITING |
-|               561 |  1 |   WAITING |     READY |
-|               561 |  1 |     READY |   RUNNING |
-|               581 |  1 |   RUNNING |   WAITING |
-|               601 |  1 |   WAITING |     READY |
-|               601 |  1 |     READY |   RUNNING |
-|               621 |  1 |   RUNNING |   WAITING |
-|               641 |  1 |   WAITING |     READY |
-|               641 |  1 |     READY |   RUNNING |
-|               661 |  1 |   RUNNING |TERMINATED |
+|               520 |  2 |   RUNNING |TERMINATED |
+|               520 |  1 |     READY |   RUNNING |
+|               540 |  1 |   RUNNING |   WAITING |
+|               560 |  1 |   WAITING |     READY |
+|               560 |  1 |     READY |   RUNNING |
+|               580 |  1 |   RUNNING |   WAITING |
+|               600 |  1 |   WAITING |     READY |
+|               600 |  1 |     READY |   RUNNING |
+|               620 |  1 |   RUNNING |   WAITING |
+|               640 |  1 |   WAITING |     READY |
+|               640 |  1 |     READY |   RUNNING |
+|               660 |  1 |   RUNNING |TERMINATED |
 +------------------------------------------------+
