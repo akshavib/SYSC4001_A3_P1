@@ -13,7 +13,7 @@ void EP_Alg(std::vector<PCB> &ready_queue) {
                 ready_queue.begin(),
                 ready_queue.end(),
                 []( const PCB &first, const PCB &second ){
-                    return (first.PID < second.PID); 
+                    return (first.PID > second.PID); 
                 } 
             );
 }
