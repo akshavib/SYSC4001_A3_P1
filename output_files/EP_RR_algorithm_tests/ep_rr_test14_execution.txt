@@ -1,0 +1,46 @@
++------------------------------------------------+
+|Time of Transition |PID | Old State | New State |
++------------------------------------------------+
+|                 0 |  5 |       NEW |     READY |
+|                 0 |  1 |       NEW |     READY |
+|                 0 |  1 |     READY |   RUNNING |
+|                10 |  1 |   RUNNING |   WAITING |
+|                10 |  5 |     READY |   RUNNING |
+|                60 |  1 |   WAITING |     READY |
+|                59 |  5 |   RUNNING |     READY |
+|                59 |  1 |     READY |   RUNNING |
+|                69 |  1 |   RUNNING |   WAITING |
+|                69 |  5 |     READY |   RUNNING |
+|               119 |  1 |   WAITING |     READY |
+|               118 |  5 |   RUNNING |     READY |
+|               118 |  1 |     READY |   RUNNING |
+|               128 |  1 |   RUNNING |   WAITING |
+|               128 |  5 |     READY |   RUNNING |
+|               178 |  1 |   WAITING |     READY |
+|               177 |  5 |   RUNNING |     READY |
+|               177 |  1 |     READY |   RUNNING |
+|               187 |  1 |   RUNNING |   WAITING |
+|               187 |  5 |     READY |   RUNNING |
+|               237 |  1 |   WAITING |     READY |
+|               236 |  5 |   RUNNING |     READY |
+|               236 |  1 |     READY |   RUNNING |
+|               246 |  1 |   RUNNING |TERMINATED |
+|               246 |  5 |     READY |   RUNNING |
+|               346 |  5 |   RUNNING |     READY |
+|               346 |  5 |     READY |   RUNNING |
+|               446 |  5 |   RUNNING |     READY |
+|               446 |  5 |     READY |   RUNNING |
+|               546 |  5 |   RUNNING |     READY |
+|               546 |  5 |     READY |   RUNNING |
+|               646 |  5 |   RUNNING |     READY |
+|               646 |  5 |     READY |   RUNNING |
+|               746 |  5 |   RUNNING |     READY |
+|               746 |  5 |     READY |   RUNNING |
+|               846 |  5 |   RUNNING |     READY |
+|               846 |  5 |     READY |   RUNNING |
+|               946 |  5 |   RUNNING |     READY |
+|               946 |  5 |     READY |   RUNNING |
+|              1046 |  5 |   RUNNING |     READY |
+|              1046 |  5 |     READY |   RUNNING |
+|              1050 |  5 |   RUNNING |TERMINATED |
++------------------------------------------------+
