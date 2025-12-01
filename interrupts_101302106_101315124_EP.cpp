@@ -5,7 +5,7 @@
  * 
  */
 
-#include<interrupts_student1_student2.hpp>
+#include<interrupts_101302106_101315124.hpp>
 
 // FCFS method was deleted and replaced with EP_Alg method
 void EP_Alg(std::vector<PCB> &ready_queue) {
