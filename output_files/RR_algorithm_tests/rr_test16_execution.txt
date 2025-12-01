@@ -1,0 +1,70 @@
++------------------------------------------------+
+|Time of Transition |PID | Old State | New State |
++------------------------------------------------+
+|                 0 |  1 |       NEW |     READY |
+|                 0 |  2 |       NEW |     READY |
+|                 0 |  3 |       NEW |     READY |
+|                 0 |  4 |       NEW |     READY |
+|                 0 |  5 |       NEW |     READY |
+|                 0 |  6 |       NEW |     READY |
+|                 0 |  1 |     READY |   RUNNING |
+|               100 |  1 |   RUNNING |     READY |
+|               100 |  2 |     READY |   RUNNING |
+|               200 |  2 |   RUNNING |     READY |
+|               200 |  3 |     READY |   RUNNING |
+|               300 |  3 |   RUNNING |     READY |
+|               300 |  4 |     READY |   RUNNING |
+|               400 |  4 |   RUNNING |     READY |
+|               400 |  5 |     READY |   RUNNING |
+|               500 |  5 |   RUNNING |     READY |
+|               500 |  6 |     READY |   RUNNING |
+|               600 |  6 |   RUNNING |     READY |
+|               600 |  1 |     READY |   RUNNING |
+|               700 |  1 |   RUNNING |     READY |
+|               700 |  2 |     READY |   RUNNING |
+|               800 |  2 |   RUNNING |     READY |
+|               800 |  3 |     READY |   RUNNING |
+|               900 |  3 |   RUNNING |     READY |
+|               900 |  4 |     READY |   RUNNING |
+|              1000 |  4 |   RUNNING |     READY |
+|              1000 |  5 |     READY |   RUNNING |
+|              1100 |  5 |   RUNNING |     READY |
+|              1100 |  6 |     READY |   RUNNING |
+|              1200 |  6 |   RUNNING |     READY |
+|              1200 |  1 |     READY |   RUNNING |
+|              1300 |  1 |   RUNNING |     READY |
+|              1300 |  2 |     READY |   RUNNING |
+|              1400 |  2 |   RUNNING |     READY |
+|              1400 |  3 |     READY |   RUNNING |
+|              1500 |  3 |   RUNNING |     READY |
+|              1500 |  4 |     READY |   RUNNING |
+|              1600 |  4 |   RUNNING |     READY |
+|              1600 |  5 |     READY |   RUNNING |
+|              1700 |  5 |   RUNNING |     READY |
+|              1700 |  6 |     READY |   RUNNING |
+|              1800 |  6 |   RUNNING |     READY |
+|              1800 |  1 |     READY |   RUNNING |
+|              1900 |  1 |   RUNNING |     READY |
+|              1900 |  2 |     READY |   RUNNING |
+|              2000 |  2 |   RUNNING |     READY |
+|              2000 |  3 |     READY |   RUNNING |
+|              2100 |  3 |   RUNNING |     READY |
+|              2100 |  4 |     READY |   RUNNING |
+|              2200 |  4 |   RUNNING |     READY |
+|              2200 |  5 |     READY |   RUNNING |
+|              2300 |  5 |   RUNNING |     READY |
+|              2300 |  6 |     READY |   RUNNING |
+|              2400 |  6 |   RUNNING |     READY |
+|              2400 |  1 |     READY |   RUNNING |
+|              2500 |  1 |   RUNNING |TERMINATED |
+|              2500 |  2 |     READY |   RUNNING |
+|              2600 |  2 |   RUNNING |TERMINATED |
+|              2600 |  3 |     READY |   RUNNING |
+|              2700 |  3 |   RUNNING |TERMINATED |
+|              2700 |  4 |     READY |   RUNNING |
+|              2800 |  4 |   RUNNING |TERMINATED |
+|              2800 |  5 |     READY |   RUNNING |
+|              2900 |  5 |   RUNNING |TERMINATED |
+|              2900 |  6 |     READY |   RUNNING |
+|              3000 |  6 |   RUNNING |TERMINATED |
++------------------------------------------------+

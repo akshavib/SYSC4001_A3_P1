@@ -1,0 +1,51 @@
++------------------------------------------------+
+|Time of Transition |PID | Old State | New State |
++------------------------------------------------+
+|                 0 |  1 |       NEW |     READY |
+|                 0 |  2 |       NEW |     READY |
+|                 0 |  3 |       NEW |     READY |
+|                 0 |  1 |     READY |   RUNNING |
+|               100 |  1 |   RUNNING |     READY |
+|               100 |  2 |     READY |   RUNNING |
+|               110 |  2 |   RUNNING |TERMINATED |
+|               110 |  3 |     READY |   RUNNING |
+|               125 |  3 |   RUNNING |TERMINATED |
+|               125 |  1 |     READY |   RUNNING |
+|               225 |  1 |   RUNNING |     READY |
+|               225 |  1 |     READY |   RUNNING |
+|               325 |  1 |   RUNNING |     READY |
+|               325 |  1 |     READY |   RUNNING |
+|               425 |  1 |   RUNNING |     READY |
+|               425 |  1 |     READY |   RUNNING |
+|               525 |  1 |   RUNNING |     READY |
+|               525 |  1 |     READY |   RUNNING |
+|               625 |  1 |   RUNNING |     READY |
+|               625 |  1 |     READY |   RUNNING |
+|               725 |  1 |   RUNNING |     READY |
+|               725 |  1 |     READY |   RUNNING |
+|               825 |  1 |   RUNNING |     READY |
+|               825 |  1 |     READY |   RUNNING |
+|               925 |  1 |   RUNNING |     READY |
+|               925 |  1 |     READY |   RUNNING |
+|              1025 |  1 |   RUNNING |     READY |
+|              1025 |  1 |     READY |   RUNNING |
+|              1125 |  1 |   RUNNING |     READY |
+|              1125 |  1 |     READY |   RUNNING |
+|              1225 |  1 |   RUNNING |     READY |
+|              1225 |  1 |     READY |   RUNNING |
+|              1325 |  1 |   RUNNING |     READY |
+|              1325 |  1 |     READY |   RUNNING |
+|              1425 |  1 |   RUNNING |     READY |
+|              1425 |  1 |     READY |   RUNNING |
+|              1525 |  1 |   RUNNING |     READY |
+|              1525 |  1 |     READY |   RUNNING |
+|              1625 |  1 |   RUNNING |     READY |
+|              1625 |  1 |     READY |   RUNNING |
+|              1725 |  1 |   RUNNING |     READY |
+|              1725 |  1 |     READY |   RUNNING |
+|              1825 |  1 |   RUNNING |     READY |
+|              1825 |  1 |     READY |   RUNNING |
+|              1925 |  1 |   RUNNING |     READY |
+|              1925 |  1 |     READY |   RUNNING |
+|              2025 |  1 |   RUNNING |TERMINATED |
++------------------------------------------------+

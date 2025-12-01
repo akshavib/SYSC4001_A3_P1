@@ -1,0 +1,35 @@
++------------------------------------------------+
+|Time of Transition |PID | Old State | New State |
++------------------------------------------------+
+|                 0 |  5 |       NEW |     READY |
+|                 0 |  5 |     READY |   RUNNING |
+|               100 |  5 |   RUNNING |     READY |
+|               100 |  5 |     READY |   RUNNING |
+|               150 |  3 |       NEW |     READY |
+|               200 |  5 |   RUNNING |     READY |
+|               200 |  3 |     READY |   RUNNING |
+|               300 |  3 |   RUNNING |     READY |
+|               300 |  1 |       NEW |     READY |
+|               300 |  5 |     READY |   RUNNING |
+|               400 |  5 |   RUNNING |     READY |
+|               400 |  3 |     READY |   RUNNING |
+|               500 |  3 |   RUNNING |TERMINATED |
+|               500 |  1 |     READY |   RUNNING |
+|               600 |  1 |   RUNNING |     READY |
+|               600 |  5 |     READY |   RUNNING |
+|               700 |  5 |   RUNNING |     READY |
+|               700 |  1 |     READY |   RUNNING |
+|               800 |  1 |   RUNNING |TERMINATED |
+|               800 |  5 |     READY |   RUNNING |
+|               900 |  5 |   RUNNING |     READY |
+|               900 |  5 |     READY |   RUNNING |
+|              1000 |  5 |   RUNNING |     READY |
+|              1000 |  5 |     READY |   RUNNING |
+|              1100 |  5 |   RUNNING |     READY |
+|              1100 |  5 |     READY |   RUNNING |
+|              1200 |  5 |   RUNNING |     READY |
+|              1200 |  5 |     READY |   RUNNING |
+|              1300 |  5 |   RUNNING |     READY |
+|              1300 |  5 |     READY |   RUNNING |
+|              1400 |  5 |   RUNNING |TERMINATED |
++------------------------------------------------+
