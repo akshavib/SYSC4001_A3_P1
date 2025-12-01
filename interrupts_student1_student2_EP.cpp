@@ -7,12 +7,13 @@
 
 #include<interrupts_student1_student2.hpp>
 
-void FCFS(std::vector<PCB> &ready_queue) {
+// FCFS method was deleted and replaced with EP_Alg method
+void EP_Alg(std::vector<PCB> &ready_queue) {
     std::sort( 
                 ready_queue.begin(),
                 ready_queue.end(),
                 []( const PCB &first, const PCB &second ){
-                    return (first.arrival_time > second.arrival_time); 
+                    return (first.PID < second.PID); 
                 } 
             );
 }
@@ -27,6 +28,8 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                                     //to make the code easier :).
 
     unsigned int current_time = 0;
+    const int CONTEXT_SWITCH = 10;
+    const int ISR_TIME = 40;
     PCB running;
 
     //Initialize an empty running process
@@ -69,10 +72,11 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
                 PCB process = *itr; // process for the completed IO
                 
                 process.state = READY; 
+                execution_status += print_exec_status(current_time, process.PID, WAITING, READY); // process went from waiting to ready
                 ready_queue.push_back(process); // add process to the ready queue
 
                 sync_queue(job_list, process); // syncing copy of the process state to the real process state 
-                execution_status += print_exec_status(current_time, process.PID, WAITING, READY); // process went from waiting to ready
+                //execution_status += print_exec_status(current_time, process.PID, WAITING, READY); // process went from waiting to ready
                 itr = wait_queue.erase(itr); // remove from wait queue
             }
             else{
@@ -82,7 +86,7 @@ std::tuple<std::string /* add std::string for bonus mark */ > run_simulation(std
         /////////////////////////////////////////////////////////////////
 
         //////////////////////////SCHEDULER//////////////////////////////
-        //FCFS(ready_queue); //example of FCFS is shown here
+        EP_Alg(ready_queue); //example of FCFS is shown here
         // asumption: lower pid = higher priority
         if(running.PID == -1 && !ready_queue.empty()) { // handling empty CPU
             run_process(running, job_list, ready_queue, current_time); // set new running process
