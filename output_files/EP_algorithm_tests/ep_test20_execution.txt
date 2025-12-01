@@ -1,0 +1,91 @@
++------------------------------------------------+
+|Time of Transition |PID | Old State | New State |
++------------------------------------------------+
+|                 0 |  1 |       NEW |     READY |
+|                 0 |  1 |     READY |   RUNNING |
+|                50 |  2 |       NEW |     READY |
+|               100 |  3 |       NEW |     READY |
+|               150 |  4 |       NEW |     READY |
+|               150 |  5 |       NEW |     READY |
+|              1000 |  1 |   RUNNING |TERMINATED |
+|              1000 |  2 |     READY |   RUNNING |
+|              1020 |  2 |   RUNNING |   WAITING |
+|              1021 |  3 |     READY |   RUNNING |
+|              1120 |  2 |   WAITING |     READY |
+|              1221 |  3 |   RUNNING |TERMINATED |
+|              1221 |  2 |     READY |   RUNNING |
+|              1241 |  2 |   RUNNING |   WAITING |
+|              1242 |  4 |     READY |   RUNNING |
+|              1341 |  2 |   WAITING |     READY |
+|              1342 |  4 |   RUNNING |TERMINATED |
+|              1342 |  2 |     READY |   RUNNING |
+|              1362 |  2 |   RUNNING |   WAITING |
+|              1363 |  5 |     READY |   RUNNING |
+|              1462 |  2 |   WAITING |     READY |
+|              1463 |  5 |   RUNNING |TERMINATED |
+|              1463 |  2 |     READY |   RUNNING |
+|              1483 |  2 |   RUNNING |   WAITING |
+|              1583 |  2 |   WAITING |     READY |
+|              1583 |  2 |     READY |   RUNNING |
+|              1603 |  2 |   RUNNING |   WAITING |
+|              1703 |  2 |   WAITING |     READY |
+|              1703 |  2 |     READY |   RUNNING |
+|              1723 |  2 |   RUNNING |   WAITING |
+|              1823 |  2 |   WAITING |     READY |
+|              1823 |  2 |     READY |   RUNNING |
+|              1843 |  2 |   RUNNING |   WAITING |
+|              1943 |  2 |   WAITING |     READY |
+|              1943 |  2 |     READY |   RUNNING |
+|              1963 |  2 |   RUNNING |   WAITING |
+|              2063 |  2 |   WAITING |     READY |
+|              2063 |  2 |     READY |   RUNNING |
+|              2083 |  2 |   RUNNING |   WAITING |
+|              2183 |  2 |   WAITING |     READY |
+|              2183 |  2 |     READY |   RUNNING |
+|              2203 |  2 |   RUNNING |   WAITING |
+|              2303 |  2 |   WAITING |     READY |
+|              2303 |  2 |     READY |   RUNNING |
+|              2323 |  2 |   RUNNING |   WAITING |
+|              2423 |  2 |   WAITING |     READY |
+|              2423 |  2 |     READY |   RUNNING |
+|              2443 |  2 |   RUNNING |   WAITING |
+|              2543 |  2 |   WAITING |     READY |
+|              2543 |  2 |     READY |   RUNNING |
+|              2563 |  2 |   RUNNING |   WAITING |
+|              2663 |  2 |   WAITING |     READY |
+|              2663 |  2 |     READY |   RUNNING |
+|              2683 |  2 |   RUNNING |   WAITING |
+|              2783 |  2 |   WAITING |     READY |
+|              2783 |  2 |     READY |   RUNNING |
+|              2803 |  2 |   RUNNING |   WAITING |
+|              2903 |  2 |   WAITING |     READY |
+|              2903 |  2 |     READY |   RUNNING |
+|              2923 |  2 |   RUNNING |   WAITING |
+|              3023 |  2 |   WAITING |     READY |
+|              3023 |  2 |     READY |   RUNNING |
+|              3043 |  2 |   RUNNING |   WAITING |
+|              3143 |  2 |   WAITING |     READY |
+|              3143 |  2 |     READY |   RUNNING |
+|              3163 |  2 |   RUNNING |   WAITING |
+|              3263 |  2 |   WAITING |     READY |
+|              3263 |  2 |     READY |   RUNNING |
+|              3283 |  2 |   RUNNING |   WAITING |
+|              3383 |  2 |   WAITING |     READY |
+|              3383 |  2 |     READY |   RUNNING |
+|              3403 |  2 |   RUNNING |   WAITING |
+|              3503 |  2 |   WAITING |     READY |
+|              3503 |  2 |     READY |   RUNNING |
+|              3523 |  2 |   RUNNING |   WAITING |
+|              3623 |  2 |   WAITING |     READY |
+|              3623 |  2 |     READY |   RUNNING |
+|              3643 |  2 |   RUNNING |   WAITING |
+|              3743 |  2 |   WAITING |     READY |
+|              3743 |  2 |     READY |   RUNNING |
+|              3763 |  2 |   RUNNING |   WAITING |
+|              3863 |  2 |   WAITING |     READY |
+|              3863 |  2 |     READY |   RUNNING |
+|              3883 |  2 |   RUNNING |   WAITING |
+|              3983 |  2 |   WAITING |     READY |
+|              3983 |  2 |     READY |   RUNNING |
+|              4003 |  2 |   RUNNING |TERMINATED |
++------------------------------------------------+
